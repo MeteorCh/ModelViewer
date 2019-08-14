@@ -8,6 +8,9 @@
 #include <windows.h>
 #include "PositionVisitor.h"
 #include "Utility.h"
+#include "OBBbox.h"
+#include "osg/ShapeDrawable"
+#include "osg/LineWidth"
 using namespace std;
 
 const char* split = " ";//分隔字符
@@ -104,13 +107,7 @@ vector<string> readAbsolutPath()
 {
 	vector<string> results;//存储所有要加载的模型的绝对路径
 	cout << "请输入模型的绝对路径（如果有多个模型，中间用空格隔开）"<<endl;
-	if (!isFirst)
-	{
-		std::cin.clear();
-		std::cin.ignore();
-	}
-	else
-		isFirst = false;
+
 	
 	string modelPaths;
 	getline(std::cin,modelPaths);
@@ -170,6 +167,7 @@ int main()
 				PositionVisitor visitor = PositionVisitor(modelName);
 				node->accept(visitor);
 				root->addChild(visitor.createRandomColorOsgNode(i));
+				
 			}
 			viewer.setSceneData(root);
 			viewer.addEventHandler(new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()));
@@ -177,13 +175,6 @@ int main()
 			viewer.setUpViewOnSingleScreen(1);//这里是单屏幕显示
 			viewer.run();
 		}
-		cout << "请输入选项：1.继续输入显示模型；2.退出程序 ：";
-		short choice;
-		std::cin >> choice;
-		if (choice == 2)
-			return 0;
-		else if (choice != 1)
-			cout << "没有该选项，请重新输入"<<endl;
 	}
 	return 0;
 }
