@@ -19,6 +19,7 @@ protected:
 	vector<Geom*> allGeom;//所有的geom
 	osg::Vec4 geomColor;//geom的颜色
 	string modelName;//模型名称
+	int textSize;//提示文字的大小
 	osg::BoundingBox boundingBox;//包围盒
 public:
 	virtual  void apply(osg::Geode& node) override;
@@ -27,6 +28,7 @@ public:
 	osg::ref_ptr<osg::Node> createRandomColorOsgNode(int order);//将geom中的数据创建成osg节点，颜色随机
 	osg::ref_ptr<osgText::Text> createTipText(short direction);//创建提示文字
 	PositionVisitor(string ModelName);
+	PositionVisitor(string ModelName, int TextSize);
 	~PositionVisitor();
 };
 

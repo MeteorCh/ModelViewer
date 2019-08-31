@@ -17,6 +17,14 @@ PositionVisitor::PositionVisitor(string ModelName)
 	setTraversalMode(osg::NodeVisitor::TRAVERSE_ALL_CHILDREN);
 }
 
+PositionVisitor::PositionVisitor(string ModelName, int TextSize)
+{
+	this->modelName = ModelName;
+	this->textSize = TextSize;
+	setTraversalMode(osg::NodeVisitor::TRAVERSE_ALL_CHILDREN);
+}
+
+
 PositionVisitor::~PositionVisitor()
 {
 	for (Geom* geom:allGeom)
@@ -113,7 +121,9 @@ osg::ref_ptr<osgText::Text> PositionVisitor::createTipText(short direction)
 	osg::ref_ptr<osgText::Font> font = osgText::readFontFile("fonts/simhei.ttf");
 	osg::ref_ptr<osgText::Text> text = new osgText::Text;
 	text->setFont(font);//设置字体
-	text->setCharacterSize(5);//字体大小
+	if (this->textSize<=0||this->textSize>50)
+		textSize = 5;
+	text->setCharacterSize(textSize);//字体大小
 
 	//对每个组件设置不同的朝向，避免所有的提示文字都在一个朝向
 	osg::Vec3 tipPosition;
