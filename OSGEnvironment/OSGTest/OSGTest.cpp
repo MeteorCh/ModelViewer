@@ -44,6 +44,7 @@ vector<string> readAbsolutPath()
 	return results;
 }
 
+
 int main()
 {
 	srand((unsigned)time(NULL));
@@ -72,6 +73,7 @@ int main()
 				node->accept(visitor);
 				root->addChild(visitor.createRandomColorOsgNode(i));
 			}
+			root->addChild(Utility::createCoorAxis(textSize));
 			viewer.setSceneData(root);
 			viewer.addEventHandler(new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()));
 			viewer.addEventHandler(new osgViewer::StatsHandler);

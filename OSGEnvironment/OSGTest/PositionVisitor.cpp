@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <osg/ComputeBoundsVisitor>
+#include "Utility.h"
 
 PositionVisitor::PositionVisitor(string ModelName)
 {
@@ -119,12 +120,6 @@ osg::ref_ptr<osg::Node> PositionVisitor::createRandomColorOsgNode(int order)
 osg::ref_ptr<osgText::Text> PositionVisitor::createTipText(short direction)
 {
 	osg::ref_ptr<osgText::Font> font = osgText::readFontFile("fonts/simhei.ttf");
-	osg::ref_ptr<osgText::Text> text = new osgText::Text;
-	text->setFont(font);//设置字体
-	if (this->textSize<=0||this->textSize>50)
-		textSize = 5;
-	text->setCharacterSize(textSize);//字体大小
-
 	//对每个组件设置不同的朝向，避免所有的提示文字都在一个朝向
 	osg::Vec3 tipPosition;
 	float halfX = (boundingBox.xMax() + boundingBox.xMin()) / 2;
@@ -133,30 +128,19 @@ osg::ref_ptr<osgText::Text> PositionVisitor::createTipText(short direction)
 	switch (direction)
 	{
 	case 0://左
-		tipPosition =osg::Vec3 (halfX, boundingBox.yMin()-1, halfZ);
-		text->setAxisAlignment(osgText::Text::XZ_PLANE);//文字对称方式
-		break;
+		tipPosition = osg::Vec3(halfX, boundingBox.yMin() - 1, halfZ);
+		return Utility::createText(modelName, textSize, font, tipPosition, direction, this->geomColor);
 	case 1://右
 		tipPosition = osg::Vec3(halfX, boundingBox.yMax()+1, halfZ);
-		text->setAxisAlignment(osgText::Text::REVERSED_XZ_PLANE);//文字对称方式
-		break;
+		return Utility::createText(modelName, textSize, font, tipPosition, direction, this->geomColor);
 	case 2://前
 		tipPosition = osg::Vec3(boundingBox.xMax()+1, halfY, halfZ);
-		text->setAxisAlignment(osgText::Text::YZ_PLANE);//文字对称方式
-		break;
+		return Utility::createText(modelName, textSize, font, tipPosition, direction, this->geomColor);
 	case 3://后
 		tipPosition = osg::Vec3(boundingBox.xMin()-1, halfY, halfZ);
-		text->setAxisAlignment(osgText::Text::REVERSED_YZ_PLANE);//文字对称方式
-		break;
+		return Utility::createText(modelName, textSize, font, tipPosition, direction, this->geomColor);
 	}
-	text->setPosition(tipPosition);//字体位置
-	text->setColor(this->geomColor);//字体颜色
-	text->setAutoRotateToScreen(false);//跟随视角不断变化，距离越远，文字越小
-	text->setBackdropType(osgText::Text::OUTLINE);//文件描边
-	text->setBackdropColor(osg::Vec4(1.0, 1.0, 1.0, 1.0));//文字描边的颜色
-	text->setDrawMode(osgText::Text::TEXT | osgText::Text::BOUNDINGBOX);//添加文字边框
-	text->setText(modelName);
-	return text;
+	return NULL;
 }
 
 
