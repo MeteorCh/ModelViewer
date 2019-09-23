@@ -8,6 +8,7 @@
 #include <windows.h>
 #include "PositionVisitor.h"
 #include "Utility.h"
+#include "osgDB/WriteFile"
 using namespace std;
 
 const char* split = " ";//·Ö¸ô×Ö·û

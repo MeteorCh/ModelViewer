@@ -62,7 +62,8 @@ void PositionVisitor::dealTriangleInfo(ModelAttributeFunctor attributeFunctor, o
 		Vertex* vertex=new Vertex;
 		vertex->coor = attributeFunctor.vertexList->at(i);
 		vertex->index = i;
-		vertex->normal = attributeFunctor.normalList->at(i);
+		if (attributeFunctor.normalList!=NULL&&attributeFunctor.normalList->size()>i)
+			vertex->normal = attributeFunctor.normalList->at(i);
 		if (i< attributeFunctor.textCoordList->size())
 			vertex->texCoor = attributeFunctor.textCoordList->at(i);
 		geom->vertices.push_back(vertex);

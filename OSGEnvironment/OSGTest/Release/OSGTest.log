@@ -1,14 +1,8 @@
-﻿  stdafx.cpp
-  Geom.cpp
-  ModelAttributeFunctor.cpp
-  OSGTest.cpp
-  PositionVisitor.cpp
-  TriangleIndex.cpp
-  Trianngle.cpp
-  Utility.cpp
-  Vertex.cpp
+﻿  OSGTest.cpp
   正在生成代码
-  All 2166 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  15 of 2166 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    58 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   OSGTest.vcxproj -> F:\Program\ModelViewer\OSGEnvironment\Release\ModelViewer.exe
   OSGTest.vcxproj -> F:\Program\ModelViewer\OSGEnvironment\Release\ModelViewer.pdb (Full PDB)
